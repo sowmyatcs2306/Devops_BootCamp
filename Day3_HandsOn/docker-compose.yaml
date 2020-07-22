@@ -1,0 +1,11 @@
+db:
+  image: mysql:latest
+  environment:
+    MYSQL_ROOT_PASSWORD: 123
+    #MYSQL_DATABASE: sample
+    #MYSQL_USER: test_user
+    #MYSQL_PASSWORD: test
+web:
+  image: sowmyatcs2306/tomcatwar:1.0
+  ports:
+   - "9092:9092"
