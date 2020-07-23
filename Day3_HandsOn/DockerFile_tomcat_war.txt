@@ -1,0 +1,4 @@
+FROM tomcat:8.0.20-jre8
+COPY /target/war-test.war /usr/local/tomcat/webapps/myapp.war
+MAINTAINER sowmya2306@gmail.com
+CMD ["catalina.sh", "run"]
