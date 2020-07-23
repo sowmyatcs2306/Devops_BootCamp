@@ -37,11 +37,9 @@ node{
   credentialsId: 'pcf',
     
   manifestChoice: [
-    value: 'jenkinsConfig',
-    appName: 'springboot2306_new',
-     
-    
-    appPath: 'target\\devops-test-app-0.0.1-SNAPSHOT.jar'
+      value: 'jenkinsConfig',
+       appName: 'springboot2306test',
+         appPath: 'target\\devops-test-app-0.0.1-SNAPSHOT.jar'
   ]
 )
     }
