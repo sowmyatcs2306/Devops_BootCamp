@@ -1,0 +1,49 @@
+node{
+    
+    stage('git checkout'){
+        git credentialsId: 'Git', url: 'https://github.com/sowmyatcs2306/Devops_BootCamp.git'
+    }
+    
+   stage('code build and test')
+    {
+        //bat 'mvn clean package'
+        
+        def mavenHome = tool name: 'maven_default',type: 'maven'
+        echo mavenHome
+        def mavenCMD = "${mavenHome}\\bin\\mvn"
+        bat "${mavenCMD} clean package"
+
+    }
+   /* def image
+  stage ('docker build')
+  {
+      
+     //  def docker = tool name: 'docker_local'
+       
+      image= docker.build("sowmyatcs2306/springboot:${env.BUILD_TAG}", '.')
+  }
+    */
+    
+    stage('deploy to pcf')
+    {
+        
+        withCredentials([usernamePassword(credentialsId: 'pcf', passwordVariable: 'pcf_pass', usernameVariable: 'pcf_user')]) {
+   
+
+        pushToCloudFoundry(
+   target: 'https://api.run.pivotal.io',
+  organization: 'sowmya2306-org',
+  cloudSpace: 'development',
+  credentialsId: 'pcf',
+    
+  manifestChoice: [
+    value: 'jenkinsConfig',
+    appName: 'springboot2306_new',
+     
+    
+    appPath: 'target\\devops-test-app-0.0.1-SNAPSHOT.jar'
+  ]
+)
+    }
+    }
+}
